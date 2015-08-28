@@ -1,6 +1,6 @@
 class MixedDentitionAnalysis
 
-	def initialize time
+	def initialize name
 		@name = name
 		@time = Time.now
 	end
@@ -10,13 +10,13 @@ class MixedDentitionAnalysis
 	def tanaka_and_johnston_max md_width_li
 		md_width_uecap = 11 + 0.5 * md_width_li
 	end
-	
+
 	def tanaka_and_johnston_mand md_width_li
-		md_width_uecap = 10.5 + 0.5 * md_width_li 
+		md_width_uecap = 10.5 + 0.5 * md_width_li
 	end
     #determines the space needed using the stanley and kerber prediction table
 	def stanley_and_kerber md_width_li_on_one_side
-		unless (23..30) === md_width_li_on_one_side 
+		unless (23..30) === md_width_li_on_one_side
 			raise ArgumentError,
 			"The sum of the mesio-distal width on one side of the mandible must be between 23-30mm "
 		end
@@ -28,6 +28,8 @@ end
 puts "Hello, am Jake, welcome to the Mixed dentition analysis application, can i know your name?"
 
 name = gets.chomp #gets name from user
+space_analyser = MixedDentitionAnalysis.new(name)#creates a new object of the Mixed Dentition Analyser class
+
 
 puts "Hi Dr #{name}, now tell me which arch you intend to work on, type 'U' for upper jaw and 'L' for lower....U or L , which is it?"
 
@@ -38,11 +40,17 @@ arch = gets.chomp.downcase! #gets whether upper or lower arch from the user
 case arch
 when "u"
 	puts "Since you are working on the upper arch Dr #{name}, please follow the following instructions carefully"
-	
-	space_analyser = MixedDentitionAnalysis.new(name) #creates a new object of the Mixed Dentition Analyser class
-
-	print "The Tanaka and Johnston method, will be used: 
-	   measure the mesio-distal width of each of the lower incissors, best done with the boley's guage, enter your values below....."
+	print "The Tanaka and Johnston method, will be used:
+	   measure the mesio-distal width of each of the lower incissors, best done with the boley's guage, enter your values, one after the other below....."
+		 values = []
+		 while values.length < 4
+			values << gets.to_i
+		end
+		values = values.inject(:+)
+		space_analysed = space_analyser.tanaka_and_johnston_max(values)
+		print "The space required for the unerupted canine and premolar is #{space_analysed}mm.
+		Thanks for using the mixed dentition analysis program"
+		exit
 when "l"
 	puts "honey"
 else
