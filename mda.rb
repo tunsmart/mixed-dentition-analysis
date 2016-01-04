@@ -46,8 +46,8 @@ when "u"
 		 while values.length < 4
 			values << gets.to_i
 		end
-		values = values.inject(:+)
-		space_analysed = space_analyser.tanaka_and_johnston_max(values)
+		md_width_li = values.inject(:+)
+		space_analysed = space_analyser.tanaka_and_johnston_max(md_width_li)
 		print "The space required for the unerupted canine and premolar is #{space_analysed}mm.
 		Thanks for using the mixed dentition analysis program"
 		exit
