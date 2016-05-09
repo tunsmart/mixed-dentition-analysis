@@ -33,24 +33,24 @@ space_analyser = MixedDentitionAnalysis.new(name)#creates a new object of the Mi
 
 puts "Hi Dr #{name}, now tell me which arch you intend to work on, type 'U' for upper jaw and 'L' for lower....U or L , which is it?"
 
-arch = gets.chomp.downcase! #gets whether upper or lower arch from the user
-  def help #defines a little logic to display to the user when they type in the incorrect arch option
-  	print "You must type in either U or L"
+arch = gets.chomp #gets whether upper or lower arch from the user
+arch.downcase!
+
+	def help #defines a little logic to display to the user when they type in the incorrect arch option
+  	puts "You must type in either U or L"
   end
 case arch
 when "u"
 	puts "Since you are working on the upper arch Dr #{name}, please follow the following instructions carefully"
-	print "The Tanaka and Johnston method, will be used:
+	puts "The Tanaka and Johnston method, will be used:
 	   measure the mesio-distal width of each of the lower incissors, best done with the boley's guage, enter your values, one after the other below....."
 		 values = []
-		 while values.length < 4
-			values << gets.to_i
-		end
-		md_width_li = values.inject(:+)
-		space_analysed = space_analyser.tanaka_and_johnston_max(md_width_li)
-		print "The space required for the unerupted canine and premolar is #{space_analysed}mm.
-		Thanks for using the mixed dentition analysis program"
-		exit
+		 values << gets.to_i while values.length < 4
+		 md_width_li = values.inject(:+)
+		 space_analysed = space_analyser.tanaka_and_johnston_max(md_width_li)
+		 puts "The space required for the unerupted canine and premolar is #{space_analysed}mm.
+		 Thanks for using the mixed dentition analysis program"
+		 exit
 when "l"
 	puts "honey"
 else
