@@ -1,1 +1,4 @@
-This is the mixed dentition analysis program, this read me will be updated as soon as the application is on a stable form.
+1. Clone the Repo
+2. cd into the Repo folder
+3. ruby mda.rb
+4. follow the prompt
