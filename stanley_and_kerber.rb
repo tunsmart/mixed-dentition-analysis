@@ -11,10 +11,10 @@ module StanleyAndKerber
 def stanley_and_kerber md_width_li_on_one_side
 	unless (23..30) === md_width_li_on_one_side
 		raise ArgumentError,
-		      "The sum of the mesio-distal width on one side of the mandible must be between 23-30mm "
+		      "The total sum of the mesio-distal width of the erupted Permanent Central and Lateral Incisors, and the unerupted Canine and Premolar, on one side of the mandible must be between 23-30mm "
 	end
 
-  space_needed = PREDICTION_TABLE.fetch(md_width_li_on_one_side) #returns the space needed when supplied with the measured mesio-distal width of the incissors on one side of the mandible
+  PREDICTION_TABLE.fetch(md_width_li_on_one_side) #returns the space needed when supplied with the measured mesio-distal width of the incissors on one side of the mandible
 
 end
 end

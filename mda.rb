@@ -1,36 +1,4 @@
-require_relative "tanaka_and_johnston"
-require_relative "stanley_and_kerber"
-
-
-
-
-
-class MixedDentitionAnalysis
-	include TanakaAndJohnston
-	include StanleyAndKerber
-
-	def initialize(values)
-		@values = values
-	end
-
-	def space_analysed_upper
-		self.tanaka_and_johnston_max(@values)
-	end
-
-	def space_analysed_lower
-		self.tanaka_and_johnston_mand(@values)
-	end
-
-	def help_one #defines a little logic to display to the user when they type in the incorrect arch option
-  	puts "You must type in either U or L"
-  end
-
-	def help_two #defines a little logic to display to the user when they type in the incorrect method option
-  	puts "You must type in either T or S"
-  end
-
-
-end
+require_relative "mixed_dentition_analyser"
 
 puts "Hello, am Jake, welcome to the Mixed dentition analysis application, can i know your name?"
 
@@ -42,6 +10,7 @@ puts "Hi Dr #{name}, now tell me which arch you intend to work on, type 'U' for 
 
 arch = gets.chomp #gets whether upper or lower arch from the user
 arch.downcase!
+space_analyser = MixedDentitionAnalysis.new#creates a new object of the Mixed Dentition Analyser class
 
 
 case arch
@@ -54,8 +23,7 @@ when "u"
 		 values = []
 		 values << gets.to_i while values.length < 4
 		 md_width_li = values.inject(:+)
-		 space_analyser = MixedDentitionAnalysis.new(md_width_li)#creates a new object of the Mixed Dentition Analyser class
-		 space_required = space_analyser.space_analysed_upper
+		 space_required = space_analyser.space_analysed_upper(md_width_li)
 		 puts "The space required for the unerupted canine and premolar is #{space_required}mm.
 		       Thanks for using the mixed dentition analysis program"
 		 exit
@@ -72,13 +40,27 @@ when "l"
 								values = []
 							  values << gets.to_i while values.length < 4
 							  md_width_li = values.inject(:+)
-							  space_analyser = MixedDentitionAnalysis.new(md_width_li)
-								space_required = space_analyser.space_analysed_lower
+								space_required = space_analyser.space_analysed_lower(md_width_li)
 								puts "The space required for the unerupted canine and premolar is #{space_required}mm.
 							        Thanks for using the mixed dentition analysis program"
 							  exit
 
 				when "s"
+					puts "The Stanley and kerber Method will be used,
+					you should have a Periapical radiograph with you, please follow the following instructions carefully"
+					puts "Measure the mesio-distal width of the Permanent Mandibular Central and Lateral incissors"
+					puts "and input the SUM of their mesio-distal width below"
+					values = []
+					values << gets.to_i
+					puts "Finally measure the mesio-distal width of the erupting Canine and Premolar from the radiograph"
+					puts "and input the SUM of their mesio-distal width below too"
+					values << gets.to_i
+					final_values = values.inject(:+)
+					space_required = space_analyser.space_analysed_stanley_and_kerber(final_values)
+					puts "The space required for the unerupted canine and premolar is #{space_required}mm.
+								Thanks for using the mixed dentition analysis program"
+					exit
+
 				else
 					space_analyser.help_two
 					exit
